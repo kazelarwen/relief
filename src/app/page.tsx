@@ -4,6 +4,8 @@ import * as maplibregl from "maplibre-gl";
 import {Accessibility,ArrowUpRight,Check,ChevronDown,Clock3,Crosshair,Droplets,LocateFixed,MapPin,Minus,Plus,Search,ShieldCheck,SlidersHorizontal,Sparkles,Star,Toilet,X} from "lucide-react";
 import {restrooms as seed,reportLabels,timeAgo,type RecentReport,type ReportKind,type Restroom} from "@/lib/data";
 import {getSupabase} from "@/lib/supabase";
+import {setWorkerUrl} from "maplibre-gl";
+setWorkerUrl(new URL("maplibre-gl/dist/maplibre-gl-worker.mjs", import.meta.url).toString());
 const options:{id:ReportKind;label:string}[]=[{id:"open",label:"Open"},{id:"closed",label:"Closed"},{id:"unavailable",label:"Unavailable"},{id:"needs_cleaning",label:"Needs cleaning"},{id:"no_water",label:"No running water"},{id:"out_of_supplies",label:"Missing supplies"}];
 const availabilityKinds:ReportKind[]=["open","closed","unavailable"];
 function getDisplayName(user?:{user_metadata?:Record<string,unknown>}|null){const meta=user?.user_metadata??{};for(const key of ["display_name","full_name","name","preferred_username"]){const value=meta[key];if(typeof value==="string"&&value.trim())return value.trim()}return null}
